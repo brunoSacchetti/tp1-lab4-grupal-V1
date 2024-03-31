@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INDEX</title>
+  </head>
+  <body>
+    <table width="50%" align="center">
+      <tr>
+        <td width="50%">
+          <b>EMPRESA</b>
+        </td>
+        <td>
+          <b>VER PAGINA</b>
+        </td>
+      </tr>
+
+      <% for (let i = 0; i < empresas.length; i++) { %>
+      <tr>
+        <td><%= empresas[i].denominacion %></td>
+        <td>
+          <a href="/home/<%= empresas[i].id %>">URL PAGINA HOME</a>
+        </td>
+      </tr>
+      <% } %>
+    </table>
+  </body>
+</html>

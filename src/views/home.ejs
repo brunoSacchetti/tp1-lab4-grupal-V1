@@ -48,7 +48,7 @@
           <div class="navbar-header">
             <h1 class="navbar-brand">
               <a data-type="rd-navbar-brand" href="./"
-                ><small></small></a
+                ><small><%= empresa.denominacion %></small></a
               >
             </h1>
             <a class="search-form_toggle" href="#"></a>
@@ -111,6 +111,9 @@
   =========================================================-->
 
       <main>
+        <% for (let i = 0; i < noticias.length; i++) { %>
+        <h2><%= noticias[i].titulo %></h2>
+        <% } %>
         <section class="well well1 well1_ins1">
           <div class="camera_container">
             <div id="camera" class="camera_wrap">

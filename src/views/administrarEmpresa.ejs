@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrar Empresa</title>
+  </head>
+  <body>
+    <h1>Administrar Empresa</h1>
+
+    <h2>Alta de Empresa</h2>
+    <form id="altaform" action="/add" method="POST">
+      <label for="denominacion">Denominación:</label>
+      <input
+        type="text"
+        id="denominacion"
+        name="denominacion"
+        required
+      /><br /><br />
+
+      <label for="telefono">Teléfono:</label>
+      <input type="tel" id="telefono" name="telefono" required /><br /><br />
+
+      <label for="horario">Horario de Atención:</label>
+      <input type="text" id="horario" name="horario" required /><br /><br />
+
+      <label for="quienesSomos">Quiénes Somos:</label><br />
+      <textarea
+        id="quienesSomos"
+        name="quienesSomos"
+        rows="4"
+        cols="50"
+        required
+      ></textarea
+      ><br /><br />
+
+      <label for="latitud">Latitud:</label>
+      <input type="text" id="latitud" name="latitud" required /><br /><br />
+
+      <label for="longitud">Longitud:</label>
+      <input type="text" id="longitud" name="longitud" required /><br /><br />
+
+      <label for="domicilio">Domicilio:</label>
+      <input type="text" id="domicilio" name="domicilio" required /><br /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" /><br /><br />
+
+      <button type="submit">Guardar Empresa</button>
+    </form>
+
+    <h2>Baja de Empresa</h2>
+    <form id="bajaForm">
+      <label for="id_baja">ID de Empresa:</label>
+      <input type="number" id="id_baja" required /><br /><br />
+      <button type="submit">Eliminar Empresa</button>
+    </form>
+
+    <h2>Modificar, Eliminar y Consulta de Empresa</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>N°</td>
+          <td>Denominacion</td>
+          <td>Email</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (empresa) { %> <% for(var i = 0; i < empresa.length; i++) { %>
+        <tr>
+          <td><%= (i + 1) %></td>
+          <td><%= empresa[i].denominacion %></td>
+          <td><%= empresa[i].email %></td>
+
+          <td class="d-flex gap-2">
+            <a href="/update/<%= empresa[i].id %>" class="btn btn-info">
+              Edit
+            </a>
+            <a href="/delete/<%= empresa[i].id %>" class="btn btn-danger">
+              Delete
+            </a>
+          </td>
+        </tr>
+        <% } %> <% } %>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,20 +1,31 @@
-import { Router } from "express";
 import {
-  createCustomers,
-  deleteCustomer,
-  editCustomer,
-  renderCustomers,
-  updateCustomer,
+  Router
+} from "express";
+import {
+  createEmpresa,
+  deleteEmpresa,
+  editEmpresa,
+  renderIndex,
+  updateEmpresa,
+  renderH,
+  renderEmpresa,
   renderHome
-} from "../controllers/customerController.js";
+ 
+} from "../controllers/EmpresaController.js";
 
 const router = Router();
 
-router.get("/", renderCustomers);
-router.post("/add", createCustomers);
-router.get("/home", renderHome); // Agregar esta línea para la ruta "/home"
-router.get("/update/:id", editCustomer);
-router.post("/update/:id", updateCustomer);
-router.get("/delete/:id", deleteCustomer);
+router.get("/", renderIndex);
+router.get("/home",renderH)
+router.get("/home/:id", renderHome);
+
+router.get("/empresa", renderEmpresa)
+
+router.post("/add", createEmpresa);
+
+router.get("/update/:id", editEmpresa);
+router.post("/update/:id", updateEmpresa);
+
+router.get("/delete/:id", deleteEmpresa);
 
 export default router;
