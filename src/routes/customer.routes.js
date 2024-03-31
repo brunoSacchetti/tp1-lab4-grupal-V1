@@ -12,6 +12,10 @@ import {
   renderHome
  
 } from "../controllers/EmpresaController.js";
+import {
+  renderNoticia,
+  createNoticia
+} from "../controllers/NoticiaController.js";
 
 const router = Router();
 
@@ -27,5 +31,17 @@ router.get("/update/:id", editEmpresa);
 router.post("/update/:id", updateEmpresa);
 
 router.get("/delete/:id", deleteEmpresa);
+
+//RUTAS - NOTICIA
+
+router.get("/noticia", renderNoticia);
+
+router.post("/addNoticia", createNoticia);
+
+//router.get("/updateNoticia/:id", editNoticia);
+//router.post("/updateNoticia/:id", updateNoticia);
+
+//router.get("/deleteNoticia/:id", deleteNoticia);
+
 
 export default router;
