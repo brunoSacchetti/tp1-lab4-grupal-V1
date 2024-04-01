@@ -23,9 +23,10 @@ export const createNoticia = async (req, res) => {
         editorHtml,
         publicada_bool,
         fechaPublicacion,
-        imagen,
         idEmpresa
     }= newNoticia;
+
+    const imagen = req.file.filename;
 
     const sql = "INSERT INTO noticia (titulo, resumen, contenidoHtml, publicada, fechaPublicacion, imagen, idEmpresa) VALUES (?, ?, ?, ?, ?, ?,?)";
   

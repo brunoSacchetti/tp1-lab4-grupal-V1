@@ -28,8 +28,8 @@ export const renderH = async (req, res) => {
 
 export const renderHome = async (req, res) => {
   const idEmpresa = req.params.id;
-  const sqlEmpresa = 'SELECT id, denominacion FROM empresa WHERE id = ?';
-  const sqlNoticias = 'SELECT id, titulo, resumen, publicada, fechaPublicacion FROM noticia WHERE idEmpresa = ?';
+  const sqlEmpresa = 'SELECT * FROM empresa WHERE id = ?';
+  const sqlNoticias = 'SELECT id, titulo, resumen, publicada, fechaPublicacion, imagen FROM noticia WHERE idEmpresa = ?';
 
   const [empresa] = await pool.query(sqlEmpresa, [idEmpresa]);
   const [noticias] = await pool.query(sqlNoticias, [idEmpresa]);

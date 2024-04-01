@@ -79,7 +79,7 @@
   <h1>Administrador de Noticias</h1>
 
     <!-- Formulario para alta, baja, modificación y consulta de noticias -->
-    <form id="formularioNoticia" action="/addNoticia" method="POST">
+    <form id="formularioNoticia" enctype="multipart/form-data" action="/addNoticia" method="POST">
         <!-- Campo de título de la noticia -->
         <label for="titulo">Título de la Noticia:</label><br>
         <input type="text" id="titulo" name="titulo" required><br><br>

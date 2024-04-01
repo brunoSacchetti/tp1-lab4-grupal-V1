@@ -56,10 +56,9 @@
 
           <div class="help-box text-right">
             <p>Telefono</p>
-            <a href="callto:#">800-2345-6789</a>
+            <a href="callto:#"><%= empresa.telefono %></a>
             <small
-              ><span>Horario:</span> 6am-4pm PST M-Th; &nbsp;6am-3pm PST
-              Fri</small
+              ><span>Horario:</span> <%= empresa.horarioAtencion %> </small
             >
           </div>
         </div>
@@ -113,6 +112,7 @@
       <main>
         <% for (let i = 0; i < noticias.length; i++) { %>
         <h2><%= noticias[i].titulo %></h2>
+        <img class="center" src="/images/<%= noticias[i].imagen %>">
         <% } %>
         <section class="well well1 well1_ins1">
           <div class="camera_container">
