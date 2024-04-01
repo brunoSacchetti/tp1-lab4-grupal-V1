@@ -3,8 +3,14 @@ import {
 } from "../db.js";
 
 export const renderNoticia = async (req, res) => {
-    const [noticias] = await pool.query("SELECT * FROM noticia");
+    const idEmpresa = req.params.id;
+    const sqlEmpresa = 'SELECT id, denominacion FROM empresa';
+    const sqlNoticias = 'SELECT id, titulo, resumen, publicada, fechaPublicacion FROM noticia';
+  
+    const [empresa] = await pool.query(sqlEmpresa);
+    const [noticias] = await pool.query(sqlNoticias);
     res.render("administrarNoticia", {
+      empresa: empresa, // Solo toma el primer elemento del resultado, ya que esperamos solo una empresa con ese ID
       noticia: noticias
     });
 };
@@ -15,16 +21,16 @@ export const createNoticia = async (req, res) => {
         titulo,
         resumen,
         editorHtml,
-        publicada,
+        publicada_bool,
         fechaPublicacion,
-        imagen
-        //const selectedOption: selectElement.options[selectElement.selectedIndex], 
-        //const idEmpresa = selectedOption.dataset.id,
+        imagen,
+        idEmpresa
     }= newNoticia;
+
+    const sql = "INSERT INTO noticia (titulo, resumen, contenidoHtml, publicada, fechaPublicacion, imagen, idEmpresa) VALUES (?, ?, ?, ?, ?, ?,?)";
   
-    const sql = "INSERT INTO noticia (titulo, resumen, contenidoHtml, publicada, fechaPublicacion, imagen) VALUES (?, ?, ?, ?, ?, ?)";
-  
-    await pool.query(sql, [titulo, resumen, editorHtml, publicada, fechaPublicacion, imagen]);
+    await pool.query(sql, [titulo, resumen, editorHtml, publicada_bool, fechaPublicacion, imagen, idEmpresa]);
   
     res.redirect("/noticia");
   };
+

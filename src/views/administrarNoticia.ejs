@@ -79,7 +79,7 @@
   <h1>Administrador de Noticias</h1>
 
     <!-- Formulario para alta, baja, modificación y consulta de noticias -->
-    <form id="formularioNoticia" enctype="multipart/form-data" action="/addNoticia" method="post">
+    <form id="formularioNoticia" action="/addNoticia" method="POST">
         <!-- Campo de título de la noticia -->
         <label for="titulo">Título de la Noticia:</label><br>
         <input type="text" id="titulo" name="titulo" required><br><br>
@@ -90,7 +90,7 @@
 
         <!-- Campo de contenido HTML -->
         <label for="editorHtml">Contenido HTML:</label><br>
-        <textarea id="editorHtml"></textarea>
+        <textarea id="editorHtml" name="editorHtml"></textarea>
         <button onclick="verHTML()">VER HTML</button><br><br><br>
         
 
@@ -109,6 +109,13 @@
         <!-- Campo de subida de imagen -->
         <label for="imagen">Imagen:</label><br>
         <input type="text" id="imagen" name="imagen" accept="image/*"><br><br>
+
+        <label for="denominacionEmpresa">Selecciona una empresa:</label>
+        <select id="denominacionEmpresa" name="idEmpresa">
+          <% empresa.forEach(denominacion => { %>
+            <option value="<%= denominacion.id %>" data-id="<%= denominacion.id %>"><%= denominacion.denominacion %></option>
+          <% }); %>
+        </select>
 
         <!-- Botones para enviar, modificar, eliminar y consultar la noticia -->
         <button type="submit">Guardar</button>
