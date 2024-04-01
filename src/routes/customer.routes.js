@@ -14,10 +14,27 @@ import {
 } from "../controllers/EmpresaController.js";
 import {
   renderNoticia,
-  createNoticia
+  createNoticia,
+  editNoticia,
+  updateNoticia,
+  deleteNoticia
 } from "../controllers/NoticiaController.js";
 
+const multer  = require('multer');
+
 const router = Router();
+
+const storage = multer.diskStorage({
+  destination:function (req,file,callback){
+  callback(null,"public/images");
+  },
+  filename:function (req,file,callback){
+      callback(null,file.fieldname + Date.now() + "image" + path.extname(file.originalname));
+  }
+});
+const upload = multer({storage: storage});
+
+upload.single("file-image-user");
 
 router.get("/", renderIndex);
 router.get("/home",renderH)
@@ -36,12 +53,12 @@ router.get("/delete/:id", deleteEmpresa);
 
 router.get("/noticia", renderNoticia);
 
-router.post("/addNoticia", createNoticia);
+router.post("/addNoticia",upload.single("imagen"),createNoticia);
 
-//router.get("/updateNoticia/:id", editNoticia);
-//router.post("/updateNoticia/:id", updateNoticia);
+router.get("/updateNoticia/:id", editNoticia);
+router.post("/updateNoticia/:id", updateNoticia);
 
-//router.get("/deleteNoticia/:id", deleteNoticia);
+router.get("/deleteNoticia/:id", deleteNoticia);
 
 
 export default router;

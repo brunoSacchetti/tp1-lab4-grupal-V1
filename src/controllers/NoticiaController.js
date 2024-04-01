@@ -33,4 +33,49 @@ export const createNoticia = async (req, res) => {
   
     res.redirect("/noticia");
   };
+ 
+export const editNoticia = async (req, res) => {
+    const {
+      id
+    } = req.params;
+    const [result] = await pool.query("SELECT * FROM noticia WHERE id = ?", [
+      id,
+    ]);
+    res.render("noticia_edit", {
+        noticia: result[0]
+    });
+};
 
+export const updateNoticia = async (req, res) => {
+    const {
+      id
+    } = req.params;
+    const updatedNoticia = req.body;
+    const {
+        titulo,
+        resumen,
+        editorHtml,
+        publicada_bool,
+        fechaPublicacion,
+        imagen,
+    } = updatedNoticia;
+  
+    const sql = "UPDATE noticia SET titulo = ?, resumen = ?, contenidoHtml = ?, publicada = ?, fechaPublicacion = ?, imagen = ? WHERE id = ?";
+  
+    await pool.query(sql, [titulo,resumen,editorHtml,publicada_bool,fechaPublicacion,imagen,id]);
+  
+    res.redirect("/noticia");
+  };
+
+  export const deleteNoticia = async (req, res) => {
+    const {
+      id
+    } = req.params;
+    const result = await pool.query("DELETE FROM noticia WHERE id = ?", [id]);
+    if (result.affectedRows === 1) {
+      res.json({
+        message: "Noticia borrada"
+      });
+    }
+    res.redirect("/noticia");
+  };

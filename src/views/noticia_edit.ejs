@@ -74,109 +74,48 @@
   </script>
 </head>
 
-
 <body>
-  <h1>Administrador de Noticias</h1>
-
-    <!-- Formulario para alta, baja, modificación y consulta de noticias -->
-    <form id="formularioNoticia" action="/addNoticia" method="POST">
-        <!-- Campo de título de la noticia -->
-        <label for="titulo">Título de la Noticia:</label><br>
-        <input type="text" id="titulo" name="titulo" required><br><br>
-
-        <!-- Campo de resumen de la noticia -->
-        <label for="resumen">Resumen de la Noticia:</label><br>
-        <textarea id="resumen" name="resumen" required cols="50" rows="5"></textarea><br><br>
-
-        <!-- Campo de contenido HTML -->
-        <label for="editorHtml">Contenido HTML:</label><br>
-        <textarea id="editorHtml" name="editorHtml"></textarea>
-        <button onclick="verHTML()">VER HTML</button><br><br><br>
-        
-
-        <!-- Campo de publicada (carácter) -->
-        <label for="publicada">Publicada</label><br>
-        <input type="radio" id="si" name="publicada_bool" value="true">
-        <label for="si" class="radio-label">Si</label>
-
-        <input type="radio" id="no" name="publicada_bool" value="false">
-        <label for="no" class="radio-label">No</label><br><br>
-
-        <!-- Campo de fecha de publicación -->
-        <label for="fechaPublicacion">Fecha de Publicación:</label><br>
-        <input type="date" id="fechaPublicacion" name="fechaPublicacion" required><br><br>
-
-        <!-- Campo de subida de imagen -->
-        <label for="imagen">Imagen:</label><br>
-        <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
-
-        <label for="denominacionEmpresa">Selecciona una empresa:</label>
-        <select id="denominacionEmpresa" name="idEmpresa">
-          <% empresa.forEach(denominacion => { %>
-            <option value="<%= denominacion.id %>" data-id="<%= denominacion.id %>"><%= denominacion.denominacion %></option>
-          <% }); %>
-        </select>
-
-        <!-- Botones para enviar, modificar, eliminar y consultar la noticia -->
-        <button type="submit">Guardar</button>
+    <h1>Editar Noticia</h1>
+  
+    <!-- Formulario para editar la noticia -->
+    <form id="formularioEditarNoticia" action="/updateNoticia/<%= noticia.id %>" method="POST">
+      <!-- Campo de título de la noticia -->
+      <label for="titulo">Título de la Noticia:</label><br>
+      <input type="text" id="titulo" name="titulo" value="<%= noticia.titulo %>" required><br><br>
+  
+      <!-- Campo de resumen de la noticia -->
+      <label for="resumen">Resumen de la Noticia:</label><br>
+      <textarea id="resumen" name="resumen" required cols="50" rows="5"><%= noticia.resumen %></textarea><br><br>
+  
+      <!-- Campo de contenido HTML -->
+      <label for="editorHtml">Contenido HTML:</label><br>
+      <textarea id="editorHtml" name="editorHtml"><%= noticia.contenidoHtml %></textarea>
+      <button onclick="verHTML()">VER HTML</button><br><br><br>
+  
+      <!-- Campo de publicada (carácter) -->
+      <label for="publicada">Publicada</label><br>
+      <input type="radio" id="si" name="publicada_bool" value="true" <% if (noticia.publicada === true) { %> checked <% } %>>
+      <label for="si" class="radio-label">Si</label>
+  
+      <input type="radio" id="no" name="publicada_bool" value="false" <% if (noticia.publicada === false) { %> checked <% } %>>
+      <label for="no" class="radio-label">No</label><br><br>
+  
+      <!-- Campo de fecha de publicación -->
+      <label for="fechaPublicacion">Fecha de Publicación:</label><br>
+      <input type="date" id="fechaPublicacion" name="fechaPublicacion" value="<%= noticia.fechaPublicacion %>" required><br><br>
+  
+      <!-- Campo de subida de imagen -->
+      <label for="imagen">Imagen:</label><br>
+      <input type="text" id="imagen" name="imagen" accept="image/*" value="<%= noticia.imagen %>"><br><br>
+  
+      <!-- Botón para guardar los cambios -->
+      <button type="submit">Guardar Cambios</button>
     </form><br><br><br>
-
-    <h2>Modificar, Eliminar y Consulta de Noticia</h2>
-    <style>
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-    
-      th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-    
-      th {
-        background-color: #f2f2f2;
-      }
-    </style>
-    <table class="d-flex gap-2">
-      <thead>
-        <tr>
-          <td>N°</td>
-          <td>Titulo</td>
-          <td>Resumen</td>
-          <td>Publicada</td>
-          <td>fechaPublicacion</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% if (noticia) { %> <% for(var i = 0; i < noticia.length; i++) { %>
-        <tr>
-          <td ><%= (i + 1) %></td>
-          <td><%= noticia[i].titulo %></td>
-          <td><%= noticia[i].resumen %></td>
-          <td><%= noticia[i].publicada %></td>
-          <td><%= noticia[i].fechaPublicacion %></td>
-
-          <td class="d-flex gap-2">
-            <a href="/updateNoticia/<%= noticia[i].id %>" class="btn btn-info">
-              Edit
-            </a>
-            <a href="/deleteNoticia/<%= noticia[i].id %>" class="btn btn-danger">
-              Delete
-            </a>
-          </td>
-        </tr>
-        <% } %> <% } %>
-      </tbody>
-    </table>
-
-</body>
-
-<script>
-function verHTML(){
-	var content = tinymce.get("editorHtml").getContent();
-	alert(content);
-}
-</script>  
-
-</html>
+  </body>
+  
+  <script>
+    function verHTML() {
+      var content = tinymce.get("editorHtml").getContent();
+      alert(content);
+    }
+  </script>

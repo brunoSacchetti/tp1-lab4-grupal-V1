@@ -39,9 +39,6 @@ export const renderHome = async (req, res) => {
   });
 }
 
-
-
-
 export const createEmpresa = async (req, res) => {
   const newEmpresa = req.body;
   const {
@@ -104,7 +101,7 @@ export const deleteEmpresa = async (req, res) => {
   const result = await pool.query("DELETE FROM empresa WHERE id = ?", [id]);
   if (result.affectedRows === 1) {
     res.json({
-      message: "Customer deleted"
+      message: "Empresa borrada"
     });
   }
   res.redirect("/empresa");
