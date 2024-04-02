@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="format-detection" content="telephone=no" />
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <title>PRIVACY</title>
 
     <!-- Bootstrap -->
-    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
 
     <!-- Links -->
-    <link rel="stylesheet" href="/css/search.css" />
+    <link rel="stylesheet" href="css/search.css" />
 
     <!--JS-->
-    <script src="/js/jquery.js"></script>
-    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="/js/rd-smoothscroll.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/rd-smoothscroll.min.js"></script>
 
     <!--[if lt IE 9]>
       <div style="clear: both; text-align: center; position: relative">
@@ -46,7 +46,7 @@
           <div class="navbar-header">
             <h1 class="navbar-brand">
               <a data-type="rd-navbar-brand" href="./"
-                ><small><%= empresa.denominacion %></small></a
+                ><small>Denominación <br />Empresa</small></a
               >
             </h1>
             <a class="search-form_toggle" href="#"></a>
@@ -54,8 +54,11 @@
 
           <div class="help-box text-right">
             <p>Telefono</p>
-            <a href="callto:#"><%= empresa.telefono %></a>
-            <small><span>Horario:</span> <%= empresa.horarioAtencion %> </small>
+            <a href="callto:#">800-2345-6789</a>
+            <small
+              ><span>Horario:</span> 6am-4pm PST M-Th; &nbsp;6am-3pm PST
+              Fri</small
+            >
           </div>
         </div>
 
@@ -78,15 +81,15 @@
             </nav>
             <form
               class="search-form"
-              action="buscador.html"
-              method="GET"
+              action="/search"
+              method="POST"
               accept-charset="utf-8"
             >
               <label class="search-form_label">
                 <input
                   class="search-form_input"
                   type="text"
-                  name="buscar"
+                  name="seeker"
                   autocomplete="off"
                   placeholder="Ingrese Texto"
                 />
@@ -108,47 +111,23 @@
       <main>
         <section class="well well4">
           <div class="container">
-            <center>
-              <div
-                id="imagenPrincipal"
-                style="
-                  height: 450px;
-                  background-image: url('http://localhost:82/template_html/images/page-1_slide1.jpg?1583775512626');
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                "
-              >
-                <div
-                  style="
-                    text-align: left;
-                    background-color: rgba(1, 1, 1, 0.5);
-                    color: #ffffff;
-                    font-size: 16px;
-                    line-height: 50px;
-                  "
-                >
-                  <%= noticia.titulo %>
-                </div>
-                <img
-                  src="/images/<%= noticia.imagen %>"
-                  style="width: 300px; height: 300px"
-                />
-              </div>
-            </center>
-            <h2><%= noticia.titulo %></h2>
-            Fecha Publicacion: <%= noticia.fechaPublicacion %>
-            <hr />
-            <div class="row offs2">
-              <div class="col-lg-12">
-                <dl class="terms-list">
-                  <dt>Resumen de la noticia</dt>
-                  <hr />
-                  <dd><%- noticia.contenidoHTML %></dd>
-                </dl>
-              </div>
-            </div>
+            <h2>Texto Buscado</h2>
           </div>
         </section>
+
+        <body>
+          <h1>Resultados de búsqueda</h1>
+          <% if (noticias.length > 0) { %>
+          <ul>
+            <% noticias.forEach(function(noticia) { %>
+            <li><%= noticia.titulo %></li>
+            <!-- Mostrar título de la noticia -->
+            <% }); %>
+          </ul>
+          <% } else { %>
+          <p>No se encontraron noticias que coincidan con la búsqueda.</p>
+          <% } %>
+        </body>
       </main>
 
       <!--========================================================

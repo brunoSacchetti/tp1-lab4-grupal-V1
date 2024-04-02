@@ -14,30 +14,35 @@ import {
   renderH,
   renderEmpresa,
   renderHome
- 
+
 } from "../controllers/EmpresaController.js";
 import {
   renderNoticia,
   createNoticia,
   editNoticia,
   updateNoticia,
-  deleteNoticia
+  deleteNoticia,
+  renderDetalleNoticias,
+  renderBuscadorNoticias,
+  searchProducts
 } from "../controllers/NoticiaController.js";
 
 const router = Router();
 
 const storage = multer.diskStorage({
-  destination:function (req,file,callback){
-  callback(null,"src/public/images");
+  destination: function (req, file, callback) {
+    callback(null, "src/public/images");
   },
-  filename:function (req,file,callback){
-      callback(null,file.fieldname + Date.now() + "image" + path.extname(file.originalname));
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + Date.now() + "image" + path.extname(file.originalname));
   }
 });
-const upload = multer({storage: storage});
+const upload = multer({
+  storage: storage
+});
 
 router.get("/", renderIndex);
-router.get("/home",renderH)
+router.get("/home", renderH)
 router.get("/home/:id", renderHome);
 
 router.get("/empresa", renderEmpresa)
@@ -53,12 +58,17 @@ router.get("/delete/:id", deleteEmpresa);
 
 router.get("/noticia", renderNoticia);
 
-router.post("/addNoticia", upload.single("imagen"),createNoticia);
+router.post("/addNoticia", upload.single("imagen"), createNoticia);
 
 router.get("/updateNoticia/:id", editNoticia);
 router.post("/updateNoticia/:id", updateNoticia);
 
 router.get("/deleteNoticia/:id", deleteNoticia);
 
+router.get("/detalle/:id", renderDetalleNoticias);
+
+
+
+router.post('/search', searchProducts);
 
 export default router;
