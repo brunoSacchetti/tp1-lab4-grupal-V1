@@ -131,11 +131,17 @@ export const renderBuscadorNoticias = async (req, res) => {
 
 export async function searchController(req, res) {
   const query = req.query.query;
-  const sqlNoticia = `SELECT * FROM noticia WHERE titulo LIKE '%${query}%'`; // Consulta para buscar noticias por título
+  const searchTerm = `%${query}%`; // Texto de búsqueda con comodines para coincidencia parcial
+  const limit = 20; // Límite de noticias por página
 
   try {
-    // Consulta para buscar noticias por título
-    const [noticias] = await pool.query(sqlNoticia);
+    // Consulta para buscar noticias por título o resumen y ordenarlas por fecha de publicación
+    const sqlNoticia = `
+      SELECT * FROM noticia 
+      WHERE titulo LIKE ? OR resumen LIKE ? 
+      ORDER BY fechaPublicacion DESC
+      LIMIT ?`;
+    const [noticias] = await pool.query(sqlNoticia, [searchTerm, searchTerm, limit]);
 
     // Array para almacenar las consultas de empresas
     const empresasPromises = noticias.map(async (noticia) => {
