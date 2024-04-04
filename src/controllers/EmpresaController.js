@@ -94,7 +94,7 @@ export const updateEmpresa = async (req, res) => {
   res.redirect("/empresa");
 };
 
-export const deleteEmpresa = async (req, res) => {
+/* export const deleteEmpresa = async (req, res) => {
   const {
     id
   } = req.params;
@@ -105,4 +105,23 @@ export const deleteEmpresa = async (req, res) => {
     });
   }
   res.redirect("/empresa");
+};
+ */
+export const deleteEmpresa = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    
+    await pool.query("DELETE FROM noticia WHERE idEmpresa = ?", [id]);
+
+    // Después de eliminar las noticias, eliminar la empresa
+    const result = await pool.query("DELETE FROM empresa WHERE id = ?", [id]);
+    
+    
+      res.redirect("/")
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al eliminar la empresa" });
+  }
 };
