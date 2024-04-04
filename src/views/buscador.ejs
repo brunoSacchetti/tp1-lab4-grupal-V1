@@ -82,18 +82,17 @@
             <form
               class="search-form"
               action="/search"
-              method="POST"
+              method="GET"
               accept-charset="utf-8"
             >
               <label class="search-form_label">
                 <input
                   class="search-form_input"
                   type="text"
-                  name="seeker"
+                  name="query"
                   autocomplete="off"
                   placeholder="Ingrese Texto"
                 />
-                <span class="search-form_liveout"></span>
               </label>
               <button
                 class="search-form_submit fa-search"
@@ -111,17 +110,18 @@
       <main>
         <section class="well well4">
           <div class="container">
-            <h2>Texto Buscado</h2>
+            <h2>Texto Buscado: <%= query %></h2>
           </div>
         </section>
 
         <body>
-          <h1>Resultados de búsqueda</h1>
+          <h1 style="color: black; text-align: center">
+            Resultados de búsqueda
+          </h1>
           <% if (noticias.length > 0) { %>
           <ul>
             <% noticias.forEach(function(noticia) { %>
-            <li><%= noticia.titulo %></li>
-            <!-- Mostrar título de la noticia -->
+            <li style="font-size: 30px"><%= noticia.titulo %></li>
             <% }); %>
           </ul>
           <% } else { %>

@@ -11,7 +11,7 @@ import {
 const app = express();
 app.use(express.json())
 // Configurar body-parser para analizar solicitudes application/x-www-form-urlencoded
-app.use(express.urlencoded({
+app.use(bodyParser.urlencoded({
   extended: false
 })); //Esto es para formData
 

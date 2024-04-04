@@ -129,25 +129,34 @@ export const renderBuscadorNoticias = async (req, res) => {
   });
 };
 
-export const searchProducts = async (req, res) => {
-  
+export async function searchController(req, res) {
+  const query = req.query.query;
+  const sqlNoticia = `SELECT * FROM noticia WHERE titulo LIKE '%${query}%'`; // Consulta para buscar noticias por título
+
   try {
-    let search = "%" + req.body.seeker + "%";
-    const noticias = await pool.query(
-      `SELECT * FROM Noticia WHERE titulo LIKE ?`,
-      [search]
-    );
+    // Consulta para buscar noticias por título
+    const [noticias] = await pool.query(sqlNoticia);
 
-    const sqlEmpresas = 'SELECT id, denominacion FROM empresa';
-    const [empresas] = await pool.query(sqlEmpresas);
+    // Array para almacenar las consultas de empresas
+    const empresasPromises = noticias.map(async (noticia) => {
+      const sqlEmpresa = 'SELECT * FROM empresa WHERE id = ?';
+      const [empresa] = await pool.query(sqlEmpresa, [noticia.idEmpresa]);
+      return empresa[0]; // Obtenemos el primer resultado de la consulta ya que esperamos solo una empresa con ese ID
+    });
 
+    // Esperar a que se completen todas las consultas de empresa
+    const empresas = await Promise.all(empresasPromises);
+
+    // Renderizar la vista con los resultados de la búsqueda y la información de la empresa asociada a cada noticia
     res.render("buscador", {
-      noticias: noticias, // Cambio el nombre de la variable a plural
-      empresas: empresas
+      noticias: noticias,
+      empresas: empresas, // Array de objetos de empresa
+      query: query
     });
   } catch (error) {
-    console.log(req.body.seeker);
-    console.error("Error al buscar noticias:", error);
-    res.status(500).send("Error al buscar noticias");
+    console.error(error);
+    res.status(500).json({
+      error: 'Internal server error'
+    });
   }
-};
+}

@@ -23,8 +23,7 @@ import {
   updateNoticia,
   deleteNoticia,
   renderDetalleNoticias,
-  renderBuscadorNoticias,
-  searchProducts
+  searchController
 } from "../controllers/NoticiaController.js";
 
 const router = Router();
@@ -69,6 +68,8 @@ router.get("/detalle/:id", renderDetalleNoticias);
 
 
 
-router.post('/search', searchProducts);
 
+
+
+router.get('/search', searchController);
 export default router;

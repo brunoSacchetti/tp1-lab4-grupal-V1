@@ -47,7 +47,7 @@
         <div class="container top-sect">
           <div class="navbar-header">
             <h1 class="navbar-brand">
-              <a data-type="rd-navbar-brand" href="./"
+              <a data-type="rd-navbar-brand" href="/home/<%= empresa.id %>"
                 ><small><%= empresa.denominacion %></small></a
               >
             </h1>
@@ -70,39 +70,33 @@
                   data-type="navbar"
                 >
                   <li style="list-style: none" class="active">
-                    <a href="home.html">INICIO</a>
+                    <a href="/">INICIO</a>
                   </li>
                   <li style="list-style: none">
-                    <a href="./">LISTA EMPRESAS</a>
+                    <a href="/">LISTA EMPRESAS</a>
                   </li>
                 </ul>
               </div>
             </nav>
-            <!-- <form
-              class="search-form seeker"
-              action="/buscador"
-              method="POST"
+            <form
+              class="search-form"
+              action="/search"
+              method="GET"
               accept-charset="utf-8"
             >
-              <label class="search-form_label" >
+              <label class="search-form_label">
                 <input
                   class="search-form_input"
                   type="text"
-                  name="seeker"
+                  name="query"
                   autocomplete="off"
                   placeholder="Ingrese Texto"
                 />
-                <span class="search-form_liveout"></span>
               </label>
               <button
                 class="search-form_submit fa-search"
                 type="submit"
               ></button>
-            </form> -->
-            <form action="/search" method="POST">
-              <label for="seeker">Buscar:</label>
-              <input type="text" id="seeker" name="seeker" required />
-              <button type="submit">Buscar</button>
             </form>
           </div>
         </div>
