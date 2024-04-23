@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({
 const __dirname = path.dirname(fileURLToPath(
   import.meta.url));
 
+  //comment default
 app.use(methodOverride('_method'));
 // settings
 app.set("port", process.env.PORT || 3000);
